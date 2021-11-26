@@ -15,6 +15,9 @@ class App {
 
     let btnList = document.querySelector("#btnList");
     btnList.addEventListener("click", this._list);
+
+    let btnRecorrido = document.querySelector("#btnListRecorrido");
+    btnRecorrido.addEventListener("click", this._crearTarjeta);
   }
 
   _readBase() {
@@ -79,6 +82,20 @@ class App {
 
   _list = () => {
     document.getElementById("lista").innerHTML = this._listaBases.listar();
+  };
+
+  _crearTarjeta = () => {
+    let inpIdBase = document.querySelector("#baseSalida");
+    let base = inpIdBase.value;
+
+    let inpIdHora = document.querySelector("#horaSalida");
+    let hora = Number(inpIdHora.value);
+
+    let inpIdMin = document.querySelector("#minSalida");
+    let min = Number(inpIdMin.value);
+
+    document.getElementById("listaRecorrido").innerHTML =
+      this._listaBases.crearTarjeta(base, hora, min);
   };
 }
 new App();

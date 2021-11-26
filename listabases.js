@@ -1,6 +1,7 @@
 export default class ListaBases {
   constructor() {
     this.inicio = null;
+    this.salida = null;
   }
 
   add(nuevabase) {
@@ -110,20 +111,76 @@ export default class ListaBases {
   }
 
   crearTarjeta(base, hora, minutos) {
-    let lista = "";
+    let lista = "Hola";
+
     let aux = this.inicio;
-    let num = 1;
-    if (this.inicio == null) {
-      return "No se han agregado Productos";
-    } else {
-      while (aux.getSiguiente() != null) {
-        lista = `  ${num}  ---->  ID: ${aux.getId()}  Nombre:  ${aux.getName()} Cantidad:  ${aux.getQuantity()}  Costo: $  ${aux.getCost()} Total: $ ${aux.getTotal()} Su siguiente es:  ${aux
-          .getSiguiente()
-          .getName()} <br> ${lista} <br>`;
-        aux = aux.getSiguiente();
-        num++;
+    let horas = Math.trunc(minutos / 60);
+    let mins = minutos % 60;
+    let cont = 0;
+    let buscar = this._buscar(base);
+    if (buscar == false) {
+      return "Esta base no existe";
+    }
+
+    while (this.salida == null) {
+      if (aux.getName() == base) {
+        this.salida = aux;
       }
-      lista = `  ${num} ----> ID: ${aux.getId()}  Nombre: ${aux.getName()} Cantidad: ${aux.getQuantity()}  Costo: ${aux.getCost()} Total: $ ${aux.getTotal()} Su siguiente es:  ${aux.getSiguiente()}<br> ${lista}  <br>`;
+      aux = aux.getSiguiente();
+    }
+    let salida = this.salida;
+    let res2 = 0;
+    let totalH = hora + horas;
+    for (let i = hora; i <= totalH; i++) {
+      for (let a = res2; a < 60; ) {
+        if (i == totalH) {
+          if (mins > salida.getTiempo()) {
+            console.log("hola");
+            lista = ` ${lista}  llegamos a siguiente base  ${salida.getName()}  Hora de llegada:  ${i} horas con ${a} minutos --->
+                      Su siguiente base es:  ${salida
+                        .getSiguiente()
+                        .getName()}  y llegara en
+                   ${salida.getSiguiente().getTiempo()} minutos. <br>`;
+            mins = mins - salida.getSiguiente().getTiempo();
+          } else {
+            console.log("holafinal");
+            lista = ` ${lista} recorrido terminado, terminamos en la base ${salida
+              .getAnterior()
+              .getName()} 
+                    a las ${hora + horas} horas`;
+            return lista;
+          }
+        }
+
+        if (cont == 1) {
+          lista = ` ${lista}  llegamos a siguiente base  ${salida.getName()}  Hora de llegada:  ${i} horas con ${a} minutos --->
+                
+                  Su siguiente base es:  ${salida
+                    .getSiguiente()
+                    .getName()}  y llegara en
+                   ${salida.getSiguiente().getTiempo()} minutos. <br>`;
+          a = a + salida.getSiguiente().getTiempo();
+          if (a > 60) {
+            res2 = a % 60;
+          }
+        }
+
+        if (cont == 0) {
+          console.log("holaprimero");
+
+          lista = `---->  Salimos de  ${salida.getName()}  Hora de salida:  ${hora} horas --->
+                          Su siguiente base es:  ${salida
+                            .getSiguiente()
+                            .getName()} y llegara en
+                   ${salida.getSiguiente().getTiempo()} minutos. <br>`;
+          a = a + salida.getSiguiente().getTiempo();
+          if (a > 60) {
+            res2 = a % 60;
+          }
+          cont = 1;
+        }
+        salida = salida.getSiguiente();
+      }
     }
     return lista;
   }

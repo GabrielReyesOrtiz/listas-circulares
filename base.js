@@ -10,7 +10,7 @@ export default class Base {
     return this._name;
   }
   getTiempo() {
-    return this._tiempo;
+    return Number(this._tiempo);
   }
 
   setName(name) {
