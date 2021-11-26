@@ -153,7 +153,7 @@ export default class ListaBases {
         }
 
         if (cont == 1) {
-          lista = ` ${lista}  Base  ${salida.getName()}  Hora de llegada:  ${i} horas con ${a} minutos --->
+          lista = ` ${lista}  Base  ${salida.getName()}  Horario:  ${i} horas con ${a} minutos --->
                 
                   Su siguiente base es:  ${salida
                     .getSiguiente()
