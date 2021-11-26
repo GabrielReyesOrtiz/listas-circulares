@@ -4,28 +4,34 @@ export default class ListaBases {
   }
 
   add(nuevabase) {
-    if (this._buscar(nuevabase.getName() == false)) {
-      if (this.inicio == null) {
-        this.inicio = base;
-        nuevabase.setSiguiente(this.inicio);
-        nuevabase.setAnterior(this.inicio);
-        return 1;
-      } else {
+    if (this.inicio == null) {
+      this.inicio = nuevabase;
+      nuevabase.setSiguiente(this.inicio);
+      nuevabase.setAnterior(this.inicio);
+      return 1;
+    } else {
+      if (this._buscar(nuevabase.getName()) == false) {
         let ultimo = this.inicio.getAnterior();
         nuevabase.setSiguiente(this.inicio);
         nuevabase.setAnterior(ultimo);
         ultimo.setSiguiente(nuevabase);
         this.inicio.setAnterior(nuevabase);
         return 1;
+      } else {
+        return 2;
       }
-    } else {
-      return 2;
     }
   }
 
   buscar(nombrebase) {
     let encontrarbase = "La base no existe";
+
+    if (this.inicio == null) {
+      return encontrarbase;
+    }
+
     let aux = this.inicio;
+
     do {
       if (aux.getName() == nombrebase) {
         encontrarbase = ` Base encontrada: ${aux.getName()}  <br>`;
@@ -50,9 +56,13 @@ export default class ListaBases {
   }
 
   eliminar(baseDelete) {
+    let baseEliminada = "La base no existe";
+    if (this.inicio == null) {
+      return baseEliminada;
+    }
+
     let temp = this.inicio;
     let elim = null;
-    let baseEliminada = "La base no existe";
 
     if (baseDelete == this.inicio.getName()) {
       elim = this.inicio;

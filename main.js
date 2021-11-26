@@ -70,7 +70,7 @@ class App {
   };
 
   _search = () => {
-    let inpIdBuscar = document.querySelector("#baseFind");
+    let inpIdBuscar = document.querySelector("#basefind");
     let nameBase = inpIdBuscar.value;
 
     document.getElementById("baseFinded").innerHTML =
