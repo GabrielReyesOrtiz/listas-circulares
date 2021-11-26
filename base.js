@@ -1,4 +1,4 @@
-export default class Proceso {
+export default class Base {
   constructor(name, tiempo) {
     this._name = name;
     this._tiempo = tiempo;
@@ -6,20 +6,19 @@ export default class Proceso {
     this._anterior = null;
   }
 
+  getName() {
+    return this._name;
+  }
   getTiempo() {
     return this._tiempo;
   }
 
-  getName() {
-    return this._name;
+  setName(name) {
+    this._name = name;
   }
 
   setTiempo(tiempo) {
     this._tiempo = tiempo;
-  }
-
-  setName(name) {
-    this._name = name;
   }
 
   getSiguiente() {

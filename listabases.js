@@ -1,90 +1,52 @@
-export default class Inventory {
+export default class ListaBases {
   constructor() {
     this.inicio = null;
   }
 
-  add(product) {
-    if (this._cont() < 20) {
-      if (this._buscar(product.getId()) == true) {
-        if (this.inicio == null) {
-          this.inicio = product;
-
-          return 1;
-        } else {
-          let aux = this.inicio;
-          while (product.getId() > aux.getId() && aux.getSiguiente() != null) {
-            aux = aux.getSiguiente();
-          }
-
-          if (product.getId() < aux.getId() && aux.getAnterior() == null) {
-            aux.setAnterior(product);
-            product.setSiguiente(aux);
-            this.inicio = product;
-
-            return 1;
-          }
-          if (aux.getSiguiente() == null && aux.getId() < product.getId()) {
-            aux.setSiguiente(product);
-            product.setAnterior(aux);
-
-            return 1;
-          }
-
-          if (aux.getId() > product.getId() || aux.getSiguiente() != null) {
-            product.setAnterior(aux.getAnterior());
-
-            aux.getAnterior().setSiguiente(product);
-
-            product.setSiguiente(aux);
-            aux.setAnterior(product);
-
-            return 1;
-          }
-        }
+  add(nuevabase) {
+    if (this._buscar(nuevabase.getName() == false)) {
+      if (this.inicio == null) {
+        this.inicio = base;
+        nuevabase.setSiguiente(this.inicio);
+        nuevabase.setAnterior(this.inicio);
+        return 1;
       } else {
-        return 2;
+        let ultimo = this.inicio.getAnterior();
+        nuevabase.setSiguiente(this.inicio);
+        nuevabase.setAnterior(ultimo);
+        ultimo.setSiguiente(nuevabase);
+        this.inicio.setAnterior(nuevabase);
+        return 1;
       }
     } else {
-      return 3;
+      return 2;
     }
   }
 
-  _cont() {
-    let cont = 1;
+  buscar(nombrebase) {
+    let encontrarbase = "La base no existe";
     let aux = this.inicio;
-    if (this.inicio == null) {
-      return cont;
-    }
-
-    while (aux.getSiguiente() != null) {
-      cont++;
-      aux = aux.getSiguiente();
-    }
-    return cont;
-  }
-
-  buscar(idProduct) {
-    let product = "El producto no existe";
-    let aux = this.inicio;
-    while (aux != null) {
-      if (aux.getId() == idProduct) {
-        product = ` ID: ${aux.getId()}  Nombre: ${aux.getName()} Cantidad: ${aux.getQuantity()}  Costo: ${aux.getCost()} <br>`;
+    do {
+      if (aux.getName() == nombrebase) {
+        encontrarbase = ` Base encontrada: ${aux.getName()}  <br>`;
         return product;
       }
       aux = aux.getSiguiente();
-    }
+    } while (aux != this.inicio);
+
     return product;
   }
 
-  _buscar(idProduct) {
+  _buscar(nombrebase) {
     let aux = this.inicio;
-    while (aux != null) {
-      if (aux.getId() == idProduct) {
-        return false;
+    do {
+      if (aux.getName() == nombrebase) {
+        return true;
       }
       aux = aux.getSiguiente();
-    }
-    return true;
+    } while (aux != this.inicio);
+
+    return false;
   }
 
   eliminar(idDelete) {
