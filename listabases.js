@@ -29,12 +29,12 @@ export default class ListaBases {
     do {
       if (aux.getName() == nombrebase) {
         encontrarbase = ` Base encontrada: ${aux.getName()}  <br>`;
-        return product;
+        return encontrarbase;
       }
       aux = aux.getSiguiente();
     } while (aux != this.inicio);
 
-    return product;
+    return encontrarbase;
   }
 
   _buscar(nombrebase) {
@@ -49,40 +49,37 @@ export default class ListaBases {
     return false;
   }
 
-  eliminar(idDelete) {
-    let product = "El producto no existe";
+  eliminar(baseDelete) {
+    let temp = this.inicio;
     let elim = null;
-    if (idDelete == this.inicio.getId()) {
+    let baseEliminada = "La base no existe";
+
+    if (baseDelete == this.inicio.getName()) {
       elim = this.inicio;
       this.inicio = this.inicio.getSiguiente();
+      elim.getSiguiente().setAnterior(elim.getAnterior());
+      elim.getAnterior().setSiguiente(elim.getSiguiente());
       elim.setSiguiente(null);
-      if (this.inicio != null) {
-        this.inicio.setAnterior(null);
-      }
-      product = `El elemento eliminado es  ID: ${elim.getId()}  Nombre: ${elim.getName()} Cantidad: ${elim.getQuantity()}  Costo: ${elim.getCost()} <br>`;
-      return product;
+      elim.setAnterior(null);
+
+      baseEliminada = `La base eliminada es:  ${elim.getName()} <br>`;
+      return baseEliminada;
     }
-    let temp = this.inicio;
-    while (temp.getSiguiente() != null) {
-      if (temp.getSiguiente().getId() == idDelete) {
+    do {
+      if (temp.getSiguiente().getName() == baseDelete) {
         elim = temp.getSiguiente();
-        if (elim.getSiguiente() != null) {
-          temp.setSiguiente(temp.getSiguiente().getSiguiente());
-          elim.getSiguiente().setAnterior(temp);
-          elim.setSiguiente(null);
-          elim.setAnterior(null);
-          product = `El elemento eliminado es  ID: ${elim.getId()}  Nombre: ${elim.getName()} Cantidad: ${elim.getQuantity()}  Costo: ${elim.getCost()} <br>`;
-          return product;
-        } else {
-          temp.setSiguiente(null);
-          elim.setAnterior(null);
-          product = `El elemento eliminado es  ID: ${elim.getId()}  Nombre: ${elim.getName()} Cantidad: ${elim.getQuantity()}  Costo: ${elim.getCost()} <br>`;
-          return product;
-        }
+        temp.setSiguiente(elim.getSiguiente());
+        elim.getSiguiente().setAnterior(temp);
+        elim.setSiguiente(null);
+        elim.setAnterior(null);
+        baseEliminada = `La base eliminada es:  ${elim.getName()} <br>`;
+        return baseEliminada;
       }
+
       temp = temp.getSiguiente();
-    }
-    return product;
+    } while (temp.getSiguiente() != this.inicio);
+
+    return baseEliminada;
   }
 
   listar() {

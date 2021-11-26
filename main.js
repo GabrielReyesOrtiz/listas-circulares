@@ -74,11 +74,11 @@ class App {
     let nameBase = inpIdBuscar.value;
 
     document.getElementById("baseFinded").innerHTML =
-      this._inventory.buscar(nameBase);
+      this._listaBases.buscar(nameBase);
   };
 
   _list = () => {
-    document.getElementById("lista").innerHTML = this._inventory.listar();
+    document.getElementById("lista").innerHTML = this._listaBases.listar();
   };
 }
 new App();
