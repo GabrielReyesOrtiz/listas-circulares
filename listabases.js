@@ -101,7 +101,7 @@ export default class ListaBases {
       return "No se han agregado Bases";
     } else {
       do {
-        lista = ` ${lista} ---->  Nombre de base:  ${aux.getName()}  Tiempo: $ ${aux.getTiempo()}
+        lista = ` ${lista} ---->  Nombre de base:  ${aux.getName()}  Tiempo: ${aux.getTiempo()} minutos,
                   Su base anterior es:  ${aux.getAnterior().getName()} 
                   Su siguiente base es:  ${aux.getSiguiente().getName()}  <br>`;
         aux = aux.getSiguiente();
@@ -134,7 +134,7 @@ export default class ListaBases {
     for (let i = hora; i <= totalH; i++) {
       for (let a = res2; a < 60; ) {
         if (i == totalH) {
-          if (mins > salida.getTiempo()) {
+          if (mins > a) {
             console.log("hola");
             lista = ` ${lista}  llegamos a siguiente base  ${salida.getName()}  Hora de llegada:  ${i} horas con ${a} minutos --->
                       Su siguiente base es:  ${salida
@@ -142,12 +142,11 @@ export default class ListaBases {
                         .getName()}  y llegara en
                    ${salida.getSiguiente().getTiempo()} minutos. <br>`;
             mins = mins - salida.getSiguiente().getTiempo();
+            cont = 2;
           } else {
-            console.log("holafinal");
-            lista = ` ${lista} recorrido terminado, terminamos en la base ${salida
+            lista = ` ${lista} recorrido terminado, ya no le queda tiempo para llegar a su siguiente base, terminamos en ${salida
               .getAnterior()
-              .getName()} 
-                    a las ${hora + horas} horas`;
+              .getName()}`;
             return lista;
           }
         }
@@ -166,8 +165,6 @@ export default class ListaBases {
         }
 
         if (cont == 0) {
-          console.log("holaprimero");
-
           lista = `---->  Salimos de  ${salida.getName()}  Hora de salida:  ${hora} horas --->
                           Su siguiente base es:  ${salida
                             .getSiguiente()

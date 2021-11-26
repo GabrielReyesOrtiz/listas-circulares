@@ -94,6 +94,10 @@ class App {
     let inpIdMin = document.querySelector("#minSalida");
     let min = Number(inpIdMin.value);
 
+    inpIdBase.value = "";
+    inpIdHora.value = "";
+    inpIdMin.value = "";
+
     document.getElementById("listaRecorrido").innerHTML =
       this._listaBases.crearTarjeta(base, hora, min);
   };
