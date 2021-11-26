@@ -111,7 +111,7 @@ export default class ListaBases {
   }
 
   crearTarjeta(base, hora, minutos) {
-    let lista = "Hola";
+    let lista = "";
 
     let aux = this.inicio;
     let horas = Math.trunc(minutos / 60);
@@ -134,14 +134,15 @@ export default class ListaBases {
     for (let i = hora; i <= totalH; i++) {
       for (let a = res2; a < 60; ) {
         if (i == totalH) {
-          if (mins > a) {
-            console.log("hola");
-            lista = ` ${lista}  llegamos a siguiente base  ${salida.getName()}  Hora de llegada:  ${i} horas con ${a} minutos --->
+          if (mins >= a) {
+            lista = ` ${lista}  Base  ${salida.getName()}  Horario:  ${i} horas con ${res2} minutos --->
                       Su siguiente base es:  ${salida
                         .getSiguiente()
                         .getName()}  y llegara en
                    ${salida.getSiguiente().getTiempo()} minutos. <br>`;
-            mins = mins - salida.getSiguiente().getTiempo();
+            mins = mins - a;
+            a = salida.getSiguiente().getTiempo();
+            res2 = res2 + salida.getSiguiente().getTiempo();
             cont = 2;
           } else {
             lista = ` ${lista} recorrido terminado, ya no le queda tiempo para llegar a su siguiente base, terminamos en ${salida
@@ -152,7 +153,7 @@ export default class ListaBases {
         }
 
         if (cont == 1) {
-          lista = ` ${lista}  llegamos a siguiente base  ${salida.getName()}  Hora de llegada:  ${i} horas con ${a} minutos --->
+          lista = ` ${lista}  Base  ${salida.getName()}  Hora de llegada:  ${i} horas con ${a} minutos --->
                 
                   Su siguiente base es:  ${salida
                     .getSiguiente()
@@ -179,6 +180,5 @@ export default class ListaBases {
         salida = salida.getSiguiente();
       }
     }
-    return lista;
   }
 }

@@ -94,6 +94,11 @@ class App {
     let inpIdMin = document.querySelector("#minSalida");
     let min = Number(inpIdMin.value);
 
+    if (!base || !hora || !min) {
+      document.getElementById("listaRecorrido").innerHTML =
+        "Error todos los elementos son requeridos";
+      return false;
+    }
     inpIdBase.value = "";
     inpIdHora.value = "";
     inpIdMin.value = "";
