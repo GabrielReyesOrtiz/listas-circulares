@@ -77,7 +77,7 @@ export default class ListaBases {
       }
 
       temp = temp.getSiguiente();
-    } while (temp.getSiguiente() != this.inicio);
+    } while (temp != this.inicio);
 
     return baseEliminada;
   }
@@ -85,23 +85,21 @@ export default class ListaBases {
   listar() {
     let lista = "";
     let aux = this.inicio;
-    let num = 1;
+
     if (this.inicio == null) {
-      return "No se han agregado Productos";
+      return "No se han agregado Bases";
     } else {
-      while (aux.getSiguiente() != null) {
-        lista = ` ${lista}  ${num}  ---->  ID: ${aux.getId()}  Nombre:  ${aux.getName()} Cantidad:  ${aux.getQuantity()}  Costo: $  ${aux.getCost()} Total: $ ${aux.getTotal()} Su siguiente es:  ${aux
-          .getSiguiente()
-          .getName()}  <br>`;
+      do {
+        lista = ` ${lista} ---->  Nombre de base:  ${aux.getName()}  Tiempo: $ ${aux.getTiempo()}
+                  Su base anterior es:  ${aux.getAnterior().getName()} 
+                  Su siguiente base es:  ${aux.getSiguiente().getName()}  <br>`;
         aux = aux.getSiguiente();
-        num++;
-      }
-      lista = ` ${lista}  ${num} ----> ID: ${aux.getId()}  Nombre: ${aux.getName()} Cantidad: ${aux.getQuantity()}  Costo: ${aux.getCost()} Total: $ ${aux.getTotal()} Su siguiente es:  ${aux.getSiguiente()}  <br>`;
+      } while (aux != this.inicio);
     }
     return lista;
   }
 
-  listarInverso() {
+  crearTarjeta(base, hora, minutos) {
     let lista = "";
     let aux = this.inicio;
     let num = 1;
